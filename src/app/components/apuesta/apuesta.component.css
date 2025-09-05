@@ -1,0 +1,38 @@
+/* Tabla completa con fondo negro y texto amarillo */
+.table {
+  background-color: #000; /* fondo negro */
+  color: #FFD700; /* texto amarillo */
+  border-color: #FFD700; /* opcional, bordes en amarillo */
+}
+
+/* Cabeceras de la tabla */
+.table th {
+  background-color: #000;
+  color: #FFD700;
+  border-color: #FFD700;
+}
+
+/* Celdas de la tabla */
+.table td {
+  background-color: #000;
+  color: #FFD700;
+  border-color: #FFD700;
+}
+.partidos {
+  font-size: 1.5rem; /* letra más grande */
+  font-weight: bold;  /* un poco más gruesa */
+  background-color: black;
+  color: #FFD700; 
+  justify-content: center;
+}
+.bote {
+  font-size: 1.5rem;       /* letra más grande */
+  font-weight: bold;        /* más gruesa */
+  color: #00FF00;           /* verde brillante */
+  background-color: #000;   /* fondo negro */
+  padding: 5px 10px;        /* un poco de espacio alrededor */
+  border-radius: 5px;       /* bordes redondeados */
+  display: inline-block;     /* para que se ajuste al contenido */
+}
+
+

@@ -1,0 +1,29 @@
+<div class="card p-3 mb-3">
+  <h5>Crear nueva jornada</h5>
+
+  <!-- Número de la jornada -->
+  <div class="mb-2">
+    <input type="number" [(ngModel)]="numeroJornada" class="form-control" placeholder="Número de jornada" min="1">
+  </div>
+
+  <!-- Fecha límite -->
+  <div class="mb-2">
+    <label for="fechaLimite">Fecha límite para apuestas:</label>
+    <input type="datetime-local" id="fechaLimite" [(ngModel)]="fechaLimite" class="form-control">
+  </div>
+
+  <!-- Partidos -->
+  <div class="mb-2">
+    <input type="text" [(ngModel)]="partido1" class="form-control" placeholder="Partido 1" maxlength="30">
+  </div>
+
+  <div class="mb-2">
+    <input type="text" [(ngModel)]="partido2" class="form-control" placeholder="Partido 2" maxlength="30">
+  </div>
+
+  <div class="mb-2">
+    <input type="text" [(ngModel)]="partido3" class="form-control" placeholder="Partido 3" maxlength="30">
+  </div>
+
+  <button class="btn btn-primary mt-2" (click)="crearJornada()">Crear Jornada</button>
+</div>
