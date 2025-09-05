@@ -17,27 +17,23 @@ export class AdminComponent implements OnInit {
   fechaLimite: string = ''; // YYYY-MM-DDTHH:mm
 
   jornadas: any[] = [];
-  esAdmin = false; // Por defecto no es admin
+  esAdmin: boolean = false; // Inicialmente false, se actualizará según localStorage
 
   constructor(private quinielaService: QuinielaService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    // Obtener jornadas
     this.jornadas = this.quinielaService.getJornadas();
 
-    // Comprobar si el usuario es admin desde localStorage
+    // Verificar si el usuario es admin leyendo el localStorage
     const rol = localStorage.getItem('rol');
     if (rol === 'admin') {
       this.esAdmin = true;
+    } else {
+      this.esAdmin = false;
     }
   }
 
   crearJornada() {
-    if (!this.esAdmin) {
-      this.toastr.error('No tienes permisos para crear jornadas', 'Error');
-      return;
-    }
-
     // Validación de campos
     if (!this.partido1 || !this.partido2 || !this.partido3) {
       this.toastr.error('Debes llenar los 3 partidos', 'Error');
@@ -55,12 +51,9 @@ export class AdminComponent implements OnInit {
     const partidos = [this.partido1, this.partido2, this.partido3];
 
     // Crear jornada con número personalizado y fecha límite
-    const nuevaJornada = this.quinielaService.crearJornadaConNumero(
-      partidos,
-      this.numeroJornada,
-      new Date(this.fechaLimite)
-    );
+    const nuevaJornada = this.quinielaService.crearJornadaConNumero(partidos, this.numeroJornada, new Date(this.fechaLimite));
 
+    // Actualizar la lista de jornadas
     this.jornadas = this.quinielaService.getJornadas();
 
     // Limpiar inputs
