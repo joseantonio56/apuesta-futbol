@@ -16,17 +16,20 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private toastr: ToastrService,
-    private authService: AuthService // Inyectamos el AuthService
+    private authService: AuthService
   ) {}
 
   login(): void {
-    // Usuario admin fijo
     const adminUsuario = 'admin';
     const adminPassword = '1234';
 
     if (this.usuario.trim() === adminUsuario && this.password === adminPassword) {
-      // Llamamos al método loginAdmin() del servicio para gestionar el estado
+      // Guardamos en el servicio
       this.authService.loginAdmin();
+
+      // Guardamos en localStorage
+      localStorage.setItem('usuario', this.usuario);
+      localStorage.setItem('rol', 'admin'); // para diferenciar si es admin
 
       this.toastr.success('Login exitoso', 'Bienvenido', { timeOut: 2000, positionClass: 'toast-top-center' });
 
