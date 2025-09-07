@@ -8,7 +8,7 @@ import { Apuesta } from '../models/apuesta';
 export class QuinielaService {
 
   private jornadas: Jornada[] = [];
-  private jornadaCounter: number = 1;
+  private jornadaCounter = 1;
 
   // Credenciales de administrador
   private admin = { usuario: 'admin', password: '1234' };
@@ -18,6 +18,7 @@ export class QuinielaService {
   }
 
   // ------------------- LOGIN ADMIN -------------------
+
   loginAdmin(usuario: string, password: string): boolean {
     if (usuario === this.admin.usuario && password === this.admin.password) {
       localStorage.setItem('adminLoggedIn', 'true');
@@ -30,17 +31,18 @@ export class QuinielaService {
     return !!localStorage.getItem('adminLoggedIn');
   }
 
-  logoutAdmin() {
+  logoutAdmin(): void {
     localStorage.removeItem('adminLoggedIn');
   }
 
-  // ------------------- FUNCIONES EXISTENTES -------------------
-  private guardarEnLocalStorage() {
+  // ------------------- FUNCIONES -------------------
+
+  private guardarEnLocalStorage(): void {
     localStorage.setItem('jornadas', JSON.stringify(this.jornadas));
     localStorage.setItem('jornadaCounter', this.jornadaCounter.toString());
   }
 
-  private cargarDesdeLocalStorage() {
+  private cargarDesdeLocalStorage(): void {
     const jornadasGuardadas = localStorage.getItem('jornadas');
     const counterGuardado = localStorage.getItem('jornadaCounter');
 
@@ -88,15 +90,26 @@ export class QuinielaService {
     return nuevaJornada;
   }
 
-  agregarApuesta(jornadaId: number, apuesta: Apuesta) {
-    const jornada = this.jornadas.find(j => j.id === jornadaId);
-    if (jornada) {
-      jornada.agregarApuesta(apuesta); // actualiza bote automáticamente
-      this.guardarEnLocalStorage();
+agregarApuesta(jornadaId: number, apuesta: Apuesta): void {
+  const jornada = this.jornadas.find(j => j.id === jornadaId);
+  if (jornada) {
+    if (!jornada.apuestas) {
+      jornada.apuestas = [];
     }
-  }
+    jornada.apuestas.push(apuesta);
 
-  actualizarJornada(jornada: Jornada) {
+    // Incrementamos el total apostado (1€ por participante)
+    jornada.bote = (jornada.bote || 0) + 1;
+
+    // Calculamos el bote real que es el 80% del total apostado
+    jornada.bote = jornada.bote * 0.8;
+
+    this.guardarEnLocalStorage();
+  }
+}
+
+
+  actualizarJornada(jornada: Jornada): void {
     const index = this.jornadas.findIndex(j => j.id === jornada.id);
     if (index !== -1) {
       this.jornadas[index] = jornada;
@@ -104,11 +117,10 @@ export class QuinielaService {
     }
   }
 
-  resetearJornadas() {
+  resetearJornadas(): void {
     this.jornadas = [];
     this.jornadaCounter = 1;
     localStorage.removeItem('jornadas');
     localStorage.removeItem('jornadaCounter');
   }
-
 }
