@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuinielaService } from '../../services/quiniela.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -19,7 +20,11 @@ export class AdminComponent implements OnInit {
   jornadas: any[] = [];
   esAdmin: boolean = false; // Inicialmente false, se actualizará según localStorage
 
-  constructor(private quinielaService: QuinielaService, private toastr: ToastrService) { }
+  constructor(
+    private quinielaService: QuinielaService,
+    private toastr: ToastrService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.jornadas = this.quinielaService.getJornadas();
@@ -64,5 +69,8 @@ export class AdminComponent implements OnInit {
     this.fechaLimite = '';
 
     this.toastr.success(`Jornada ${nuevaJornada.numero} creada con éxito`, 'Éxito');
+
+    // Redirigir a /apuestas
+    this.router.navigate(['/apuestas']);
   }
 }
