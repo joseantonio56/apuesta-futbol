@@ -1,4 +1,4 @@
-<div class="card p-3 mb-3">
+<div class="card p-3 mb-3" *ngIf="esAdmin">
   <h5>Crear nueva jornada</h5>
 
   <!-- Número de la jornada -->
@@ -29,13 +29,13 @@
 </div>
 <!--https://apuesta-futbol.vercel.app
 # 1. Ver qué archivos han cambiado
-git status
+
 
 # 2. Agregar todos los cambios al área de staging
 git add .
 
 # 3. Crear un commit con un mensaje descriptivo
-git commit -m "Quitar botón de crear jornada para usuarios no admin y ajustar redirección después de login"
+git commit -m "Poner botón de crear jornada para usuarios no admin y ajustar redirección después de login"
 
 # 4. Subir los cambios a la rama principal (main)
 git push origin main
