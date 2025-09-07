@@ -26,17 +26,18 @@ export class AdminComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
+ngOnInit(): void {
+  const rol = localStorage.getItem('rol');
+  if (rol !== 'admin') {
+    this.toastr.error('Acceso denegado. Debes iniciar sesión como administrador.', 'Error');
+    this.router.navigate(['/login']); // o la ruta que uses para login
+  } else {
+    this.esAdmin = true;
     this.jornadas = this.quinielaService.getJornadas();
-
-    // Verificar si el usuario es admin leyendo el localStorage
-    const rol = localStorage.getItem('rol');
-    if (rol === 'admin') {
-      this.esAdmin = true;
-    } else {
-      this.esAdmin = false;
-    }
   }
+}
+
+
 
   crearJornada() {
     // Validación de campos

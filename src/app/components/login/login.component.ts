@@ -19,24 +19,25 @@ export class LoginComponent {
     private authService: AuthService
   ) {}
 
-  login(): void {
-    const adminUsuario = 'admin';
-    const adminPassword = '1234';
+ login(): void {
+  const adminUsuario = 'admin';
+  const adminPassword = '1234';
 
-    if (this.usuario.trim() === adminUsuario && this.password === adminPassword) {
-      // Guardamos en el servicio
-      this.authService.loginAdmin();
+  if (this.usuario.trim() === adminUsuario && this.password === adminPassword) {
+    // Guardamos en el servicio
+    this.authService.loginAdmin();
 
-      // Guardamos en localStorage
-      localStorage.setItem('usuario', this.usuario);
-      localStorage.setItem('rol', 'admin'); // para diferenciar si es admin
+    // Guardamos en localStorage
+    localStorage.setItem('usuario', this.usuario);
+    localStorage.setItem('rol', 'admin'); // para diferenciar si es admin
 
-      this.toastr.success('Login exitoso', 'Bienvenido', { timeOut: 2000, positionClass: 'toast-top-center' });
+    this.toastr.success('Login exitoso', 'Bienvenido', { timeOut: 2000, positionClass: 'toast-top-center' });
 
-      // Redirigimos a la página de apuestas
-      this.router.navigate(['/apuesta']);
-    } else {
-      this.toastr.error('Usuario o contraseña incorrectos', 'Error', { timeOut: 3000, positionClass: 'toast-top-center' });
-    }
+    // Redirigimos a la página de creación de jornadas
+    this.router.navigate(['/admin']);
+  } else {
+    this.toastr.error('Usuario o contraseña incorrectos', 'Error', { timeOut: 3000, positionClass: 'toast-top-center' });
   }
+}
+
 }
