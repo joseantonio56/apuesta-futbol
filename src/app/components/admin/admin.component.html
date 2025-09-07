@@ -25,7 +25,19 @@
     <input type="text" [(ngModel)]="partido3" class="form-control" placeholder="Partido 3" maxlength="30">
   </div>
 
- <button *ngIf="esAdmin" class="btn btn-primary mt-2" (click)="crearJornada()">Crear Jornada</button>
+<!--<button *ngIf="esAdmin" class="btn btn-primary mt-2" (click)="crearJornada()">Crear Jornada</button>--> 
 </div>
 <!--https://apuesta-futbol.vercel.app
+# 1. Ver qué archivos han cambiado
+git status
+
+# 2. Agregar todos los cambios al área de staging
+git add .
+
+# 3. Crear un commit con un mensaje descriptivo
+git commit -m "Quitar botón de crear jornada para usuarios no admin y ajustar redirección después de login"
+
+# 4. Subir los cambios a la rama principal (main)
+git push origin main
+
 -->
